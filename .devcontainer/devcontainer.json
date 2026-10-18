@@ -1,0 +1,22 @@
+{
+  "name": "PROG3 - Parcial 3 (Java 21)",
+  "image": "mcr.microsoft.com/devcontainers/java:21-bookworm",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "redhat.java"
+      ],
+      "settings": {
+        "files.encoding": "utf8",
+        "java.configuration.updateBuildConfiguration": "automatic"
+      }
+    },
+    "codespaces": {
+      "openFiles": [
+        "README.md",
+        "Parcial3ArreglosColecciones.java"
+      ]
+    }
+  },
+  "postCreateCommand": "chmod +x verificar.sh probar.sh && java -version"
+}
