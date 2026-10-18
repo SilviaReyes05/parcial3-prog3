@@ -14,7 +14,7 @@ import java.util.TreeSet;
  *  Unidad 3: Diseñar aplicaciones utilizando arreglos, clases y métodos
  * ============================================================================
  *
- *  Nombre: ______________________________   Carnet: ________________
+ *  Nombre: Silvia Arely Reyes Rodriguez   Carnet: 17-2696-2024
  *
  *  CASO: inventario en memoria de «DistriSalva, S.A. de C.V.»
  *  ----------------------------------------------------------------------------
@@ -95,9 +95,16 @@ public class Parcial3ArreglosColecciones {
      *  Nota: con un arreglo vacío el for no se ejecuta y suma queda en 0,
      *  así que ese caso no necesita un if aparte.
      */
-    public static int sumarCantidades(int[] cantidades) {
-        // COMPLETAR (TODO): recorra el arreglo con un for y acumule cada cantidad.
-        throw new UnsupportedOperationException("TODO sumarCantidades");
+    
+public static int sumarCantidades(int[] cantidades) {
+        if (cantidades == null) {
+            return 0;
+        }
+        int suma = 0;
+        for (int c : cantidades) {
+            suma += c;
+        }
+        return suma;
     }
 
     /**
@@ -125,9 +132,18 @@ public class Parcial3ArreglosColecciones {
      *  5. Use > y no >= : con >= un valor repetido reemplazaría al primero y
      *     devolvería la ÚLTIMA posición.
      */
-    public static int indiceDelMayor(int[] cantidades) {
-        // COMPLETAR (TODO): guarde la posición del mayor encontrado hasta el momento.
-        throw new UnsupportedOperationException("TODO indiceDelMayor");
+   
+public static int indiceDelMayor(int[] cantidades) {
+        if (cantidades == null || cantidades.length == 0) {
+            return -1;
+        }
+        int indice = 0;
+        for (int i = 1; i < cantidades.length; i++) {
+            if (cantidades[i] > cantidades[indice]) {
+                indice = i;
+            }
+        }
+        return indice;
     }
 
     // =========================================================================
@@ -164,9 +180,18 @@ public class Parcial3ArreglosColecciones {
      *     Ojo: es < y no <=. Pan tiene 10 y el mínimo es 10: NO entra.
      *  5. Retorne la lista. Si nadie cumplió, ya está vacía (no retorne null).
      */
+
     public static List<String> filtrarStockBajo(String[] nombres, int[] cantidades, int minimo) {
-        // COMPLETAR (TODO): valide los parámetros, cree un ArrayList y use add().
-        throw new UnsupportedOperationException("TODO filtrarStockBajo");
+        if (nombres == null || cantidades == null || nombres.length != cantidades.length) {
+            throw new IllegalArgumentException("Los arreglos no pueden ser nulos y deben tener la misma longitud.");
+        }
+        List<String> resultado = new ArrayList<>();
+        for (int i = 0; i < nombres.length; i++) {
+            if (cantidades[i] < minimo) {
+                resultado.add(nombres[i]);
+            }
+        }
+        return resultado;
     }
 
     /**
@@ -198,11 +223,22 @@ public class Parcial3ArreglosColecciones {
      *  5. Agregue el texto YA recortado: " Bebidas" y "Bebidas " deben
      *     terminar siendo el mismo "Bebidas".
      */
-    public static Set<String> categoriasUnicas(List<String> categorias) {
-        // COMPLETAR (TODO): recorra la lista y agregue al TreeSet solo las válidas.
-        throw new UnsupportedOperationException("TODO categoriasUnicas");
+    
+ public static Set<String> categoriasUnicas(List<String> categorias) {
+        Set<String> resultado = new TreeSet<>();
+        if (categorias == null) {
+            return resultado;
+        }
+        for (String c : categorias) {
+            if (c != null) {
+                String trimmed = c.trim();
+                if (!trimmed.isEmpty()) {
+                    resultado.add(trimmed);
+                }
+            }
+        }
+        return resultado;
     }
-
     /**
      * MÉTODO 5 (20 %) — Nivel: INTERMEDIO — Map (HashMap): clave -> valor acumulado.
      *
@@ -235,9 +271,19 @@ public class Parcial3ArreglosColecciones {
      *  5. El orden en que se imprime un HashMap no importa; lo que se revisa es
      *     que cada código tenga su total correcto.
      */
+
     public static Map<String, Integer> construirInventario(String[] codigos, int[] cantidades) {
-        // COMPLETAR (TODO): use containsKey/get/put o getOrDefault.
-        throw new UnsupportedOperationException("TODO construirInventario");
+        if (codigos == null || cantidades == null || codigos.length != cantidades.length) {
+            throw new IllegalArgumentException("Los arreglos no pueden ser nulos y deben tener la misma longitud.");
+        }
+        Map<String, Integer> inventario = new HashMap<>();
+        for (int i = 0; i < codigos.length; i++) {
+            String codigo = codigos[i];
+            int cantidad = cantidades[i];
+            int total = inventario.getOrDefault(codigo, 0) + cantidad;
+            inventario.put(codigo, total);
+        }
+        return inventario;
     }
 
     // =========================================================================
@@ -245,7 +291,8 @@ public class Parcial3ArreglosColecciones {
     //  lo usa. Compare la salida con los valores "esperado".
     //  Sugerencia: agregue sus propios casos límite (null, vacío, negativos).
     // =========================================================================
-    public static void main(String[] args) {
+
+ public static void main(String[] args) {
         probar("1. sumarCantidades     esperado 50",
                 () -> sumarCantidades(new int[]{15, 30, 5}));
         probar("2. indiceDelMayor      esperado 1",
@@ -269,3 +316,5 @@ public class Parcial3ArreglosColecciones {
         }
     }
 }
+
+
